@@ -1,4 +1,4 @@
-package com.example.productvalidation.entity;
+package com.example.productvalidation.module;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 @Data
-@Document
+@Document(collection = "product")
 public class Product {
     @Id
     private String productId;
