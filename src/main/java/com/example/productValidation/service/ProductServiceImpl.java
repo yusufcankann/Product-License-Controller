@@ -1,11 +1,10 @@
-package com.example.productvalidation.service;
+package com.example.productValidation.service;
 
-import com.example.productvalidation.module.Product;
-import com.example.productvalidation.module.ProductionSite;
-import com.example.productvalidation.repository.ProductRepository;
+import com.example.productValidation.module.Product;
+import com.example.productValidation.module.ProductionSite;
+import com.example.productValidation.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,11 +30,19 @@ public class ProductServiceImpl implements ProductService{
         for(Product p : products){
             if(p.getProductName().equals(product.getProductName())){
                 log.info("Product already exist! {}",p.getProductName());
+                return null;
             }
         }
 
         productRepository.save(product);
         return product;
+    }
+
+    @Override
+    public void addProducts(List<Product> products) {
+        for(Product product : products){
+            addProduct(product);
+        }
     }
 
     @Override

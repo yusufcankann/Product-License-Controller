@@ -1,4 +1,4 @@
-package com.example.productvalidation;
+package com.example.productValidation;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

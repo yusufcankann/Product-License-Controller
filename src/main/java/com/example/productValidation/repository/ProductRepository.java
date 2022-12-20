@@ -1,6 +1,6 @@
-package com.example.productvalidation.repository;
+package com.example.productValidation.repository;
 
-import com.example.productvalidation.module.Product;
+import com.example.productValidation.module.Product;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

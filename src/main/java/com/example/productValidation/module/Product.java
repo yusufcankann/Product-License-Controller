@@ -1,4 +1,4 @@
-package com.example.productvalidation.module;
+package com.example.productValidation.module;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

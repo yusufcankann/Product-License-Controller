@@ -1,9 +1,9 @@
-package com.example.productvalidation.service;
+package com.example.productValidation.service;
 
 
-import com.example.productvalidation.module.Product;
-import com.example.productvalidation.module.ProductionSite;
-import com.example.productvalidation.repository.ProductRepository;
+import com.example.productValidation.module.Product;
+import com.example.productValidation.module.ProductionSite;
+import com.example.productValidation.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

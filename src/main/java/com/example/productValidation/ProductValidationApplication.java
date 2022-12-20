@@ -1,16 +1,7 @@
-package com.example.productvalidation;
+package com.example.productValidation;
 
-import com.example.productvalidation.module.Product;
-import com.example.productvalidation.module.ProductionSite;
-import com.example.productvalidation.repository.ProductRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.core.MongoTemplate;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @SpringBootApplication
 public class ProductValidationApplication {
