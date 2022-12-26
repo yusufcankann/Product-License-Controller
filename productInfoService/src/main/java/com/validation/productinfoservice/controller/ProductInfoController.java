@@ -1,9 +1,9 @@
-package org.product.controller;
+package com.validation.productinfoservice.controller;
 
+import com.validation.productinfoservice.dto.ProductResponse;
+import com.validation.productinfoservice.dto.ValidationRequest;
+import com.validation.productinfoservice.service.ValidationService;
 import lombok.AllArgsConstructor;
-import org.product.dto.ProductResponse;
-import org.product.dto.ValidationRequest;
-import org.product.service.ValidationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,7 @@ public class ProductInfoController {
 
     @GetMapping(value = "productInfo/validateProduct")
     @ResponseStatus(HttpStatus.OK)
-    List<ProductResponse> validateProduct(@RequestBody ValidationRequest validateRequest){
+    List<ProductResponse> validateProduct(@RequestBody List<ValidationRequest> validateRequest){
         return validationService.validateProduct(validateRequest);
     }
 

@@ -1,4 +1,4 @@
-package org.product.dto;
+package com.validation.productinfoservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

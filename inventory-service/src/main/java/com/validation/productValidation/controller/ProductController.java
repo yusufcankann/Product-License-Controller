@@ -34,7 +34,7 @@ public class ProductController {
     @DeleteMapping(path="delete/{brand}/{registrationId}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteProduct(@PathVariable("brand") String brand,@PathVariable("registrationId") String registrationId){
-        productService.deleteProductByRegistrationIdAndBrand(brand,registrationId);
+        productService.deleteProductByRegistrationIdAndBrand(registrationId,brand);
     }
 
     @GetMapping(value = "inventory/product", params = {"brand"})
@@ -47,10 +47,10 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ProductResponse>> getProductWithBrandProductName(@RequestParam(required = true) String brand,
                                                                   @RequestParam(required = true) String productName){
-            return ResponseEntity.ok().body(productService.getProductByBrandAndProductName(productName,brand));
+            return ResponseEntity.ok().body(productService.getProductByBrandAndProductName(brand,productName));
     }
 
-    @GetMapping("/inventory/products")
+    @GetMapping("/inventory/validateProducts")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ProductResponse>> getProductByValidationObjectList(@RequestBody List<ValidationRequest> products) {
         return ResponseEntity.ok().body(productService.getProductByValidationObjectList(products));

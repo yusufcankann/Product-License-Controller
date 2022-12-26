@@ -15,7 +15,7 @@ public interface ProductRepository extends MongoRepository<Product,String> {
     List<Product> findProductsByBrandAndProductName(String brand, String productName);
     List<Product> findByBrandAndProductionDateBetween(String brand,Date from, Date to);
     List<Product> findByBrandAndExpireDateBetween(String brand,Date from, Date to);
-    Optional<Product> findByRegistrationIdAndBrandAndName(String registrationId,String brand,String name);
+    Optional<Product> findByRegistrationIdAndBrandAndProductName(String registrationId,String brand,String name);
     Optional<Product> findByRegistrationIdAndBrand(String registrationId,String brand);
     void deleteByRegistrationIdAndBrand(String registrationId,String brand);
 

@@ -11,10 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -90,7 +87,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ProductResponse getProductByRegistrationIdAndBrandAndName(String registrationId, String brand, String name) {
         log.info("geting product from the database registrationId {} brand {} name {}",registrationId,brand,name);
-        Optional<Product> product = productRepository.findByRegistrationIdAndBrandAndName(registrationId,brand,name);
+        Optional<Product> product = productRepository.findByRegistrationIdAndBrandAndProductName(registrationId,brand,name);
         Product retVal = product.orElseGet(() -> createNonValidProduct(registrationId, brand, name));
         return mapToProductResponse(retVal);
     }
@@ -149,13 +146,21 @@ public class ProductServiceImpl implements ProductService{
     }
 
     private ProductResponse mapToProductResponse(Product product) {
-        return ProductResponse.builder().productId(product.getProductId()).registrationId(product.getRegistrationId()).
+        ProductResponse response = ProductResponse.builder().productId(product.getProductId()).
+                registrationId(product.getRegistrationId()).
                 productName(product.getProductName()).
                 brand(product.getBrand()).productionDate(product.getProductionDate()).
                 expireDate(product.getExpireDate()).
                 isExpandible(product.getIsExpandible()).
                 productionSite(product.getProductionSite()).
                 creationTime(product.getCreationTime()).build();
+
+        if(Objects.equals(response.getProductId(), "")){
+            response.setValid(false);
+        }else{
+            response.setValid(true);
+        }
+        return response;
     }
 
     private List<ProductResponse> getProductResponses(List<Product> products) {

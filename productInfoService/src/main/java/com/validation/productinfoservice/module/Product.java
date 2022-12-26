@@ -1,5 +1,6 @@
-package org.product.module;
+package com.validation.productinfoservice.module;
 
+import com.validation.productValidation.module.ProductionSite;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
