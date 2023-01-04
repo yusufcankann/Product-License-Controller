@@ -1,0 +1,46 @@
+syntax = "proto3";
+package com.validation.productinfoservice;
+
+option java_multiple_files = true;
+option java_package = "com.validation.productinfoservice";
+
+
+service ProductInfoService {
+  // Sends a greeting
+  rpc ValidateProduct
+      (ValidationRequest) returns (ProductResponse) {
+  }
+}
+
+// The request message containing the user's name.
+message ValidationRequest {
+  string registrationId = 1;
+  string brand = 2;
+
+}
+
+// The response message containing the greetings
+message ProductResponse {
+  string registrationId = 1;
+  string productId = 2;
+  string productName = 3;
+  string brand = 4;
+  Date productionDate = 5;
+  Date expireDate = 6;
+  bool isExpandible = 7;
+  ProductionSite productionSite = 8;
+  Date creationTime = 9;
+  bool isValid = 10;
+}
+
+message Date {
+  int32 year = 1;
+  int32 month = 2;
+  int32 day = 3;
+}
+
+message ProductionSite{
+  string country = 1;
+  string city = 2;
+  string postcode = 3;
+}
