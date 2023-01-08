@@ -4,39 +4,44 @@ package com.validation.productinfoservice;
 option java_multiple_files = true;
 option java_package = "com.validation.productinfoservice";
 
+import "google/protobuf/timestamp.proto";
+
+
+service InventoryService {
+  rpc addProduct (Product) returns (Product);
+  rpc addProducts (stream Product) returns (stream Product);
+  rpc deleteProductByRegistrationIdAndBrand(Product) returns (Product);
+  rpc getProductsByBrand(Product) returns (stream Product);
+  rpc getProductByBrandAndProductName(Product) returns (stream Product);
+  rpc getProductByRegistrationIdAndBrandAndName(Product) returns (Product);
+  rpc getProductByRegistrationIdAndBrand(Product) returns (Product);
+  rpc getProductByValidationObjectList(stream ValidationRequest) returns (stream Product);
+}
+
 
 service ProductInfoService {
-  // Sends a greeting
-  rpc ValidateProduct
-      (ValidationRequest) returns (ProductResponse) {
-  }
+  rpc validateProducts (stream ValidationRequest) returns (Product);
+  rpc registerProducts (stream Product) returns (stream Product);
+  rpc deleteProduct(Product) returns (Product);
+  rpc getProductsByBrand(Product) returns (stream Product);
+  rpc getProductByBrandAndProductName(Product) returns (stream Product);
+  rpc getProductByRegistrationIdAndBrandAndName(Product) returns (Product);
+  rpc getProductByRegistrationIdAndBrand(Product) returns (Product);
 }
 
-// The request message containing the user's name.
-message ValidationRequest {
-  string registrationId = 1;
-  string brand = 2;
-
-}
 
 // The response message containing the greetings
-message ProductResponse {
+message Product {
   string registrationId = 1;
   string productId = 2;
   string productName = 3;
   string brand = 4;
-  Date productionDate = 5;
-  Date expireDate = 6;
-  bool isExpandible = 7;
+  google.protobuf.Timestamp productionDate = 5;
+  google.protobuf.Timestamp expireDate = 6;
+  bool isExpandable = 7;
   ProductionSite productionSite = 8;
-  Date creationTime = 9;
+  google.protobuf.Timestamp creationTime = 9;
   bool isValid = 10;
-}
-
-message Date {
-  int32 year = 1;
-  int32 month = 2;
-  int32 day = 3;
 }
 
 message ProductionSite{
@@ -44,3 +49,63 @@ message ProductionSite{
   string city = 2;
   string postcode = 3;
 }
+
+message ValidationRequest {
+  string registrationId = 1;
+  string brand = 2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
