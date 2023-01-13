@@ -15,7 +15,7 @@ public interface ProductRepository extends MongoRepository<ProductEntity,String>
     Optional<ProductEntity> findProductByBrandAndProductName(String brand, String productName);
 //    List<ProductEntity> findByBrandAndProductionDateBetween(String brand, LocalDate from, LocalDate to);
 //    List<ProductEntity> findByBrandAndExpireDateBetween(String brand,LocalDate from, LocalDate to);
-    Optional<ProductEntity> findByRegistrationIdAndBrandAndName(String registrationId,String brand,String name);
+    Optional<ProductEntity> findByRegistrationIdAndBrandAndProductName(String registrationId,String brand,String name);
     Optional<ProductEntity> findByRegistrationIdAndBrand(String registrationId,String brand);
     void deleteByRegistrationIdAndBrand(String registrationId,String brand);
 
@@ -24,8 +24,3 @@ public interface ProductRepository extends MongoRepository<ProductEntity,String>
 //    public List<Product> (Date startDate, Date endDate);
 
 }
-
-
-
-
-

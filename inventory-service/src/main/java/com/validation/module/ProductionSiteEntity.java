@@ -1,6 +1,6 @@
 package com.validation.module;
 
-import com.validation.inventoryservice.ProductionSite;
+import com.validation.service.ProductionSite;
 import lombok.Data;
 
 /*

@@ -1,27 +1,22 @@
 package com.validation.service;
 
-import com.validation.inventoryservice.ValidationRequest;
 import com.validation.module.ProductEntity;
 import com.validation.module.ProductionSiteEntity;
 import com.validation.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 @Slf4j
 public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
-
 
     @Override
     public ProductEntity addProduct(ProductEntity product) {
@@ -32,17 +27,19 @@ public class ProductServiceImpl implements ProductService{
             return null;
         }
 
-        ProductEntity newProduct = ProductEntity.builder().
-                registrationId(product.getRegistrationId()).
-                productName(product.getProductName()).
-                brand(product.getBrand()).
-                productionDate(product.getProductionDate()).
-                expireDate(product.getExpireDate()).
-                isExpandable(product.getIsExpandable()).
-                productionSite(product.getProductionSite()).
-                creationTime(product.getCreationTime()).build();
-        productRepository.save(newProduct);
-        return newProduct;
+//        ProductEntity newProduct = ProductEntity.builder().
+//                registrationId(product.getRegistrationId()).
+//                productName(product.getProductName()).
+//                brand(product.getBrand()).
+//                productionDate(product.getProductionDate()).
+//                expireDate(product.getExpireDate()).
+//                isExpandable(product.getIsExpandable()).
+//                productionSite(product.getProductionSite()).
+//                creationTime(product.getCreationTime()).build();
+        productRepository.save(product);
+        log.info("product succesfully added to the database brand:{}",product.getBrand());
+
+        return product;
     }
 
     @Override
@@ -73,7 +70,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ProductEntity getProductByRegistrationIdAndBrandAndName(String registrationId, String brand, String name) {
         log.info("geting product from the database registrationId {} brand {} name {}",registrationId,brand,name);
-        Optional<ProductEntity> product = productRepository.findByRegistrationIdAndBrandAndName(registrationId,brand,name);
+        Optional<ProductEntity> product = productRepository.findByRegistrationIdAndBrandAndProductName(registrationId,brand,name);
         ProductEntity retVal = product.orElseGet(() -> createNonValidProduct(registrationId, brand, name));
         return retVal;
     }
@@ -87,24 +84,16 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<ProductEntity> getProductByValidationObjectList(List<ValidationRequest> products) {
+    public ProductEntity getProductByValidationObject(ValidationRequest product) {
 
-        List<ProductEntity> responseList = new ArrayList<>();
+        log.info("geting product from the database with validationRequest object registrationId {} brand {}",
+                product.getBrand(),product.getRegistrationId());
 
-        for(ValidationRequest validationRequest : products){
-            log.info("geting product from the database with validationRequest object registrationId {} brand {}",
-                    validationRequest.getBrand(),validationRequest.getRegistrationId());
+        Optional<ProductEntity> productEntity = productRepository.findByRegistrationIdAndBrand(
+                product.getRegistrationId(),product.getBrand());
 
-            Optional<ProductEntity> product = productRepository.findByRegistrationIdAndBrand(
-                    validationRequest.getRegistrationId(),validationRequest.getBrand());
-
-            ProductEntity retVal = product.orElseGet(() -> createNonValidProduct(validationRequest.getRegistrationId(),
-                    validationRequest.getBrand(),""));
-
-            responseList.add(retVal);
-
-        }
-        return responseList;
+        return productEntity.orElseGet(() -> createNonValidProduct(product.getRegistrationId(),
+                product.getBrand(),""));
     }
 
     private boolean checkProductExist(ProductEntity product) {

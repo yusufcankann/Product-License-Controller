@@ -1,34 +1,19 @@
 syntax = "proto3";
-package com.validation.productinfoservice;
-
 option java_multiple_files = true;
-option java_package = "com.validation.productinfoservice";
+package com.validation.service;
 
 import "google/protobuf/timestamp.proto";
-
 
 service InventoryService {
   rpc addProduct (Product) returns (Product);
   rpc addProducts (stream Product) returns (stream Product);
   rpc deleteProductByRegistrationIdAndBrand(Product) returns (Product);
   rpc getProductsByBrand(Product) returns (stream Product);
-  rpc getProductByBrandAndProductName(Product) returns (stream Product);
+  rpc getProductsByBrandAndProductName(Product) returns (stream Product);
   rpc getProductByRegistrationIdAndBrandAndName(Product) returns (Product);
   rpc getProductByRegistrationIdAndBrand(Product) returns (Product);
-  rpc getProductByValidationObjectList(stream ValidationRequest) returns (stream Product);
+  rpc getProductByValidationObject(ValidationRequest) returns (Product);
 }
-
-
-service ProductInfoService {
-  rpc validateProducts (stream ValidationRequest) returns (Product);
-  rpc registerProducts (stream Product) returns (stream Product);
-  rpc deleteProduct(Product) returns (Product);
-  rpc getProductsByBrand(Product) returns (stream Product);
-  rpc getProductByBrandAndProductName(Product) returns (stream Product);
-  rpc getProductByRegistrationIdAndBrandAndName(Product) returns (Product);
-  rpc getProductByRegistrationIdAndBrand(Product) returns (Product);
-}
-
 
 // The response message containing the greetings
 message Product {
@@ -54,58 +39,3 @@ message ValidationRequest {
   string registrationId = 1;
   string brand = 2;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

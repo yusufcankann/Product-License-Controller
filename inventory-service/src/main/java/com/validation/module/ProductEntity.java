@@ -1,8 +1,8 @@
 package com.validation.module;
 
 import com.google.protobuf.Timestamp;
-import com.validation.inventoryservice.Product;
-import com.validation.inventoryservice.ProductionSite;
+import com.validation.service.Product;
+import com.validation.service.ProductionSite;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
