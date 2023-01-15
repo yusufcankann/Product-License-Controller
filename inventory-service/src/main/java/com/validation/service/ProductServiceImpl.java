@@ -61,10 +61,10 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductEntity getProductByBrandAndProductName(String brand, String name) {
+    public List<ProductEntity> getProductsByBrandAndProductName(String brand, String name) {
         log.info("geting products from the database brand {} productionName {}",brand,name);
-        Optional<ProductEntity> product = productRepository.findProductByBrandAndProductName(brand,name);
-        return product.orElseGet(() -> createNonValidProduct("", brand, name));
+        List<ProductEntity> product = productRepository.findProductsByBrandAndProductName(brand,name);
+        return product;
     }
 
     @Override

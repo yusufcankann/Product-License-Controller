@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ProductRepository extends MongoRepository<ProductEntity,String> {
 
     List<ProductEntity> findProductsByBrand(String brand);
-    Optional<ProductEntity> findProductByBrandAndProductName(String brand, String productName);
+    List<ProductEntity> findProductsByBrandAndProductName(String brand, String productName);
 //    List<ProductEntity> findByBrandAndProductionDateBetween(String brand, LocalDate from, LocalDate to);
 //    List<ProductEntity> findByBrandAndExpireDateBetween(String brand,LocalDate from, LocalDate to);
     Optional<ProductEntity> findByRegistrationIdAndBrandAndProductName(String registrationId,String brand,String name);

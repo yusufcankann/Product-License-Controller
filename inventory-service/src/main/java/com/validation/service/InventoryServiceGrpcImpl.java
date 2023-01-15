@@ -11,6 +11,7 @@ import net.devh.boot.grpc.server.service.GrpcService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @GrpcService
 @RequiredArgsConstructor
@@ -21,7 +22,14 @@ public class InventoryServiceGrpcImpl extends InventoryServiceGrpc.InventoryServ
 
     @Override
     public void addProduct(Product request, StreamObserver<Product> responseObserver) {
-        responseObserver.onNext(productService.addProduct(ProductEntity.fromProto(request)).toProto());
+        ProductEntity addedProduct = productService.addProduct(ProductEntity.fromProto(request));
+        if(Objects.isNull(addedProduct)){
+            log.error("product could not added reg Id {}",request.getRegistrationId());
+            responseObserver.onNext(null);
+            responseObserver.onCompleted();
+            return;
+        }
+        responseObserver.onNext(addedProduct.toProto());
         responseObserver.onCompleted();
         log.info("product added reg Id {}",request.getRegistrationId());
     }
@@ -33,7 +41,11 @@ public class InventoryServiceGrpcImpl extends InventoryServiceGrpc.InventoryServ
 
             @Override
             public void onNext(Product product) {
-                productService.addProduct(ProductEntity.fromProto(product));
+                ProductEntity addedProduct = productService.addProduct(ProductEntity.fromProto(product));
+                if(Objects.isNull(addedProduct)){
+                    log.error("product could not added reg Id {}",product.getRegistrationId());
+                    return;
+                }
                 returnList.add(product);
                 log.info("product with name: {} regid: {} succesfully added to db",product.getProductName(),product.getRegistrationId());
             }
@@ -80,8 +92,8 @@ public class InventoryServiceGrpcImpl extends InventoryServiceGrpc.InventoryServ
     @Override
     public void getProductsByBrandAndProductName(Product request, StreamObserver<Product> responseObserver) {
         List<Product> products = new ArrayList<>();
-        List<ProductEntity> entityList = productService.getProducstByBrandAndProductName(request.getBrand(),request.getProductName());
-        entityList.stream().map(item ->item.toProto()).forEach(products::add);
+        List<ProductEntity> entityList = productService.getProductsByBrandAndProductName(request.getBrand(),request.getProductName());
+        entityList.stream().map(ProductEntity::toProto).forEach(products::add);
         products.forEach(responseObserver::onNext);
         responseObserver.onCompleted();
     }
@@ -90,15 +102,17 @@ public class InventoryServiceGrpcImpl extends InventoryServiceGrpc.InventoryServ
     public void getProductsByBrand(Product request, StreamObserver<Product> responseObserver) {
         List<Product> products = new ArrayList<>();
         List<ProductEntity> entityList = productService.getProductsByBrand(request.getBrand());
-        entityList.stream().map(item ->item.toProto()).forEach(products::add);
+        entityList.stream().map(ProductEntity::toProto).forEach(products::add);
         products.forEach(responseObserver::onNext);
         responseObserver.onCompleted();
     }
 
     @Override
     public void deleteProductByRegistrationIdAndBrand(Product request, StreamObserver<Product> responseObserver) {
+
+        ProductEntity product = productService.getProductByRegistrationIdAndBrand(request.getRegistrationId(),request.getBrand());
         productService.deleteProductByRegistrationIdAndBrand(request.getRegistrationId(),request.getBrand());
-        responseObserver.onNext(request);
+        responseObserver.onNext(product.toProto());
         responseObserver.onCompleted();
         log.info("product removed by reg Id and brand {} {}",request.getRegistrationId(),request.getBrand());
     }

@@ -1,4 +1,6 @@
 grpc:
+  server:
+    port: 9001
   client:
     grpc-inventory-service:
       address: static://localhost:9000

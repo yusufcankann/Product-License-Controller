@@ -8,10 +8,7 @@ import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.boot.logging.LoggerGroup;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -27,12 +24,18 @@ public class InventoryInfoService {
     @GrpcClient("grpc-inventory-service")
     InventoryServiceGrpc.InventoryServiceStub asynchronousClient;
 
-    public void addProduct(Product product){
+    public Product addProduct(Product product){
         Product p = synchronousClient.addProduct(product);
+
+        if(Objects.isNull(p)){
+            log.error("product could not registered regId: {}",product.getRegistrationId());
+            return null;
+        }
 
         if(p.getRegistrationId().equals(product.getRegistrationId())) {
             log.info("Product succesfull added to inventoryService...");
         }
+        return p;
     }
 
     public List<Product> addProducts(List<Product> productList){
@@ -41,8 +44,8 @@ public class InventoryInfoService {
 
         StreamObserver<Product> responseObserver = asynchronousClient.addProducts(new StreamObserver<Product>() {
             @Override
-            public void onNext(Product book) {
-                response.add(book);
+            public void onNext(Product product) {
+                response.add(product);
             }
 
             @Override
@@ -94,8 +97,8 @@ public class InventoryInfoService {
         Product request = Product.newBuilder().setBrand(brand).setProductName(name).build();
         asynchronousClient.getProductsByBrandAndProductName(request,new StreamObserver<Product>() {
             @Override
-            public void onNext(Product book) {
-                response.add(book);
+            public void onNext(Product product) {
+                response.add(product);
             }
 
             @Override
@@ -125,8 +128,8 @@ public class InventoryInfoService {
         Product request = Product.newBuilder().setBrand(brand).build();
         asynchronousClient.getProductsByBrand(request,new StreamObserver<Product>() {
             @Override
-            public void onNext(Product book) {
-                response.add(book);
+            public void onNext(Product product) {
+                response.add(product);
             }
 
             @Override

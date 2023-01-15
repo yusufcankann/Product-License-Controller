@@ -15,6 +15,37 @@ service InventoryService {
   rpc getProductByValidationObject(ValidationRequest) returns (Product);
 }
 
+service ProductInfoService {
+  rpc validateProducts (ValidationRequest) returns (Product);
+  rpc registerProduct (Product) returns (Product);
+  rpc registerProducts (stream Product) returns (stream Product);
+  rpc deleteProductByRegistrationIdAndBrand(Product) returns (Product);
+  rpc getProductsByBrand(Product) returns (stream Product);
+  rpc getProductsByBrandAndProductName(Product) returns (stream Product);
+  rpc getProductByRegistrationIdAndBrandAndName(Product) returns (Product);
+  rpc getProductByRegistrationIdAndBrand(Product) returns (Product);
+}
+
+service RegistrationService {
+  rpc registerProduct (Product) returns (Product);
+  rpc registerProducts (stream Product) returns (stream Product);
+  rpc deleteProductByRegistrationIdAndBrand(Product) returns (Product);
+  rpc getProductsByBrand(Product) returns (stream Product);
+  rpc getProductsByBrandAndProductName(Product) returns (stream Product);
+  rpc getProductByRegistrationIdAndBrandAndName(Product) returns (Product);
+  rpc getProductByRegistrationIdAndBrand(Product) returns (Product);
+}
+
+service RegistrationServiceCompany{
+  rpc getCompanies(Company) returns (stream Company);
+  rpc getCompaniesBySector(Company) returns (stream Company);
+  rpc getCompaniesByName(Company) returns (stream Company);
+  rpc getCompanyByNameAndSector(Company) returns (Company);
+  rpc addCompany(Company) returns (Company);
+}
+
+
+
 // The response message containing the greetings
 message Product {
   string registrationId = 1;
@@ -39,3 +70,9 @@ message ValidationRequest {
   string registrationId = 1;
   string brand = 2;
 }
+
+message Company{
+  string name=1;
+  string sector=2;
+}
+
