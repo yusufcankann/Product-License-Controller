@@ -44,6 +44,9 @@ service RegistrationServiceCompany{
   rpc addCompany(Company) returns (Company);
 }
 
+service ValidationService{
+  rpc validateProduct(ValidationRequest) returns (Product);
+}
 
 
 // The response message containing the greetings

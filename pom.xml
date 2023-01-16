@@ -8,6 +8,7 @@
         <module>inventory-service</module>
         <module>productInfoService</module>
         <module>registrationService</module>
+        <module>validationService</module>
     </modules>
     <groupId>org.product.productLicenseController</groupId>
     <artifactId>product-validation</artifactId>
