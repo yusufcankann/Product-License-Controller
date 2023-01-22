@@ -66,6 +66,13 @@ service ValidationService{
   rpc validateProduct(ValidationRequest) returns (Product);
 }
 
+service UserService{
+  rpc validateProduct(ValidationRequest) returns (Product);
+}
+
+service NonRegisteredUserService{
+  rpc validateProduct(ValidationRequest) returns (Product);
+}
 
 // The response message containing the greetings
 message Product {

@@ -10,6 +10,8 @@
         <module>registrationService</module>
         <module>validationService</module>
         <module>companyService</module>
+        <module>userService</module>
+        <module>nonRegisteredUserService</module>
     </modules>
     <groupId>org.product.productLicenseController</groupId>
     <artifactId>product-validation</artifactId>
