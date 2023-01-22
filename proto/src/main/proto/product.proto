@@ -4,6 +4,42 @@ package com.validation.service;
 
 import "google/protobuf/timestamp.proto";
 
+service CompanyServiceRegistrationProduct {
+  rpc registerProduct (Product) returns (Product);
+  rpc registerProducts (stream Product) returns (stream Product);
+  rpc deleteProductByRegistrationIdAndBrand(Product) returns (Product);
+  rpc getProductsByBrand(Product) returns (stream Product);
+  rpc getProductsByBrandAndProductName(Product) returns (stream Product);
+  rpc getProductByRegistrationIdAndBrandAndName(Product) returns (Product);
+  rpc getProductByRegistrationIdAndBrand(Product) returns (Product);
+}
+
+service CompanyService {
+  rpc getCompanies(Company) returns (stream Company);
+  rpc getCompaniesBySector(Company) returns (stream Company);
+  rpc getCompaniesByName(Company) returns (stream Company);
+  rpc getCompanyByNameAndSector(Company) returns (Company);
+  rpc addCompany(Company) returns (Company);
+}
+
+service RegistrationService {
+  rpc registerProduct (Product) returns (Product);
+  rpc registerProducts (stream Product) returns (stream Product);
+  rpc deleteProductByRegistrationIdAndBrand(Product) returns (Product);
+  rpc getProductsByBrand(Product) returns (stream Product);
+  rpc getProductsByBrandAndProductName(Product) returns (stream Product);
+  rpc getProductByRegistrationIdAndBrandAndName(Product) returns (Product);
+  rpc getProductByRegistrationIdAndBrand(Product) returns (Product);
+}
+
+service RegistrationServiceCompany{
+  rpc getCompanies(Company) returns (stream Company);
+  rpc getCompaniesBySector(Company) returns (stream Company);
+  rpc getCompaniesByName(Company) returns (stream Company);
+  rpc getCompanyByNameAndSector(Company) returns (Company);
+  rpc addCompany(Company) returns (Company);
+}
+
 service InventoryService {
   rpc addProduct (Product) returns (Product);
   rpc addProducts (stream Product) returns (stream Product);
@@ -24,24 +60,6 @@ service ProductInfoService {
   rpc getProductsByBrandAndProductName(Product) returns (stream Product);
   rpc getProductByRegistrationIdAndBrandAndName(Product) returns (Product);
   rpc getProductByRegistrationIdAndBrand(Product) returns (Product);
-}
-
-service RegistrationService {
-  rpc registerProduct (Product) returns (Product);
-  rpc registerProducts (stream Product) returns (stream Product);
-  rpc deleteProductByRegistrationIdAndBrand(Product) returns (Product);
-  rpc getProductsByBrand(Product) returns (stream Product);
-  rpc getProductsByBrandAndProductName(Product) returns (stream Product);
-  rpc getProductByRegistrationIdAndBrandAndName(Product) returns (Product);
-  rpc getProductByRegistrationIdAndBrand(Product) returns (Product);
-}
-
-service RegistrationServiceCompany{
-  rpc getCompanies(Company) returns (stream Company);
-  rpc getCompaniesBySector(Company) returns (stream Company);
-  rpc getCompaniesByName(Company) returns (stream Company);
-  rpc getCompanyByNameAndSector(Company) returns (Company);
-  rpc addCompany(Company) returns (Company);
 }
 
 service ValidationService{

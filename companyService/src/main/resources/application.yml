@@ -1,0 +1,7 @@
+grpc:
+  server:
+    port: 9004
+  client:
+    grpc-product-info-service:
+      address: static://localhost:9002
+      negotiationType: plaintext

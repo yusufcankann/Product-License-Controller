@@ -14,14 +14,13 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
-public class ProductInfoService {
+public class ProductService {
 
     @GrpcClient("grpc-product-info-service")
-    ProductInfoServiceGrpc.ProductInfoServiceBlockingStub synchronousClient;
+    RegistrationServiceGrpc.RegistrationServiceBlockingStub synchronousClient;
 
     @GrpcClient("grpc-product-info-service")
-    ProductInfoServiceGrpc.ProductInfoServiceStub asynchronousClient;
-
+    RegistrationServiceGrpc.RegistrationServiceStub asynchronousClient;
 
     public Product registerProduct(Product product){
         Product p = synchronousClient.registerProduct(product);
@@ -120,8 +119,8 @@ public class ProductInfoService {
         Product request = Product.newBuilder().setBrand(brand).setProductName(name).build();
         asynchronousClient.getProductsByBrandAndProductName(request,new StreamObserver<Product>() {
             @Override
-            public void onNext(Product p) {
-                response.add(p);
+            public void onNext(Product book) {
+                response.add(book);
             }
 
             @Override
