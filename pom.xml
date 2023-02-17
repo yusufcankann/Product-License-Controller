@@ -12,6 +12,9 @@
         <module>companyService</module>
         <module>userService</module>
         <module>nonRegisteredUserService</module>
+        <module>discoveryServer</module>
+        <module>apiGateway</module>
+        <module>authService</module>
     </modules>
     <groupId>org.product.productLicenseController</groupId>
     <artifactId>product-validation</artifactId>
